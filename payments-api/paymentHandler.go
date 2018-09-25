@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
@@ -13,9 +15,7 @@ type PaymentResponse struct {
 	Amount int    `json:"amount"`
 }
 
-
-func writeToKafka()
-{
+func writeToKafka() {
 	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "localhost"})
 	if err != nil {
 		panic(err)
@@ -64,7 +64,7 @@ func (s *server) paymentHandler() http.HandlerFunc {
 			panic(err)
 		}
 
-		writeToKafka();
+		writeToKafka()
 
 		//Set Content-Type header so that clients will know how to read response
 		w.Header().Set("Content-Type", "application/json")
